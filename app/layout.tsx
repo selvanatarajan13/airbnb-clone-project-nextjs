@@ -3,10 +3,9 @@ import type { Metadata } from 'next'
 import { Noto_Sans_JP } from 'next/font/google'
 import Navbar from './components/navbar/Navbar'
 import ClientOnly from './components/ClientOnly'
-import { QueryClientProvider } from "@tanstack/react-query";
 
 import RegisterModal from './components/modals/RegisterModel'
-import { queryClient } from './libs/queryClient'
+import ReactQueryProvider from './components/providers/ReactQueryProvider'
 
 const noto = Noto_Sans_JP({ subsets: ['latin'] })
 
@@ -24,7 +23,7 @@ export default async function RootLayout({
 	return (
 		<html lang="ja">
 			<body className={noto.className}>
-				<QueryClientProvider client={queryClient}>
+				<ReactQueryProvider>
 					<ClientOnly>
 						<RegisterModal />
 						<Navbar />
@@ -32,7 +31,7 @@ export default async function RootLayout({
 					<div className="pb-20 pt-28">
 						{children}
 					</div>
-				</QueryClientProvider>
+				</ReactQueryProvider>
 			</body>
 		</html>
 	)

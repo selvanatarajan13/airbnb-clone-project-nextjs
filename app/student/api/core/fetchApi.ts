@@ -5,6 +5,8 @@ export type APIConfig = {
     accessToken?: boolean;
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+
 type FetchApiParams<T> = {
     apiConfig: APIConfig;
     payload?: unknown;
@@ -25,8 +27,10 @@ export async function fetchApi<T>({ apiConfig, payload }: FetchApiParams<T>): Pr
         }
     }
 
+    const url = `${BASE_URL}${endPoint}`;
+
     const res = await fetch(
-        endPoint, {
+        url, {
             method,
             headers,
             body: method !== "GET" ? JSON.stringify(payload) : undefined,
