@@ -46,7 +46,13 @@ const formSchema = z.object({
     fullName: z.string().min(3, "Name must be above 3 character"),
 }).and(workExperienceSchema).and(languageKnowledgeSchema).and(educationalSchema);
 
+const EmployeeResponseSchema = z.object({
+    status: z.literal("success"),
+    message: z.string()
+});
+
 type FormSchema = z.infer<typeof formSchema>;
+export type EmployeeResponse = z.infer<typeof EmployeeResponseSchema>;
 
 const formDefaultValues: FormSchema = {
     fullName: "",
@@ -56,5 +62,5 @@ const formDefaultValues: FormSchema = {
 }
 
 export {
-    formDefaultValues, formSchema, type FormSchema
+    formDefaultValues, formSchema, type FormSchema, EmployeeResponseSchema
 }

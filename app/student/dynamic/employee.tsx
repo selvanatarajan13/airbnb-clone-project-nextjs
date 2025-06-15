@@ -5,7 +5,7 @@ import { formDefaultValues, formSchema, FormSchema } from "../validation/employe
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { useEffect, useRef } from "react";
+import { useLogic } from "../hooks/useLogic";
 
 const EmployeeRegisterationForm = () => {
 
@@ -41,9 +41,12 @@ const EmployeeRegisterationForm = () => {
     FieldErrors<Extract<FormSchema, { educationalLevel: "highSchoolDiploma" }>> &
     FieldErrors<Extract<FormSchema, { educationalLevel: "bachelorDegree" }>> = errors;
 
-    const onSubmit: SubmitHandler<FormSchema> = (data) => {
+    const { postEmployeeRegister } = useLogic();
+
+    const onSubmit: SubmitHandler<FormSchema> = async (data: FormSchema) => {
         alert(JSON.stringify(data, null, 2));
-        console.log("data: ", data)
+        console.log("data: ", data);
+        await postEmployeeRegister(data);
     }
 
     return (
