@@ -47,19 +47,19 @@ const formSchema = z.object({
 }).and(workExperienceSchema).and(languageKnowledgeSchema).and(educationalSchema);
 
 const EmployeeResponseSchema = z.object({
-    id: z.number(),
-    fullName: z.string(),
-    hasWorkExperience: z.boolean(),
-    companyName: z.string().optional(), // optional if null in case of hasWorkExperience = false
-    hasKnownOtherLanguages: z.boolean(),
-    languages: z.array(z.string()).optional(), // optional if false
-    educationalLevel: z.enum([
-        "noFormalEducation",
-        "highSchoolDiploma",
-        "bachelorDegree"
-    ]),
-    schoolName: z.string().optional(),
-    universityName: z.string().optional()
+  id: z.number(),
+  fullName: z.string(),
+  hasWorkExperience: z.boolean().nullable(),
+  companyName: z.string().optional().nullable(),
+  hasKnownOtherLanguages: z.boolean(),
+  languages: z.array(z.string()).optional().nullable(), // ✅ FIXED: expecting string[]
+  educationalLevel: z.enum([
+    "noFormalEducation",
+    "highSchoolDiploma",
+    "bachelorDegree"
+  ]),
+  schoolName: z.string().optional().nullable(),
+  universityName: z.string().optional().nullable(),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
